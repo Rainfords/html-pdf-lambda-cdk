@@ -10,6 +10,7 @@ export class Helper {
       const executablePath = process.env.IS_OFFLINE
         ? undefined
         : await chromium.executablePath;
+
       browser = await chromium.puppeteer.launch({
         args: chromium.args,
         executablePath,

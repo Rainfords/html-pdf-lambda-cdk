@@ -10,7 +10,6 @@ export class PDFGenerator {
    */
   static getPDF: GeneratorFunction = async event => {
     try {
-      console.log(event);
       const html = getTemplate({ name: 'Ian' });
       const options = {
         format: 'A4',
@@ -25,7 +24,7 @@ export class PDFGenerator {
           'Content-type': 'application/pdf',
         },
         statusCode: 200,
-        body: 'TESTING', //pdf.toString('base64'),
+        body: pdf.toString('base64'),
         isBase64Encoded: true,
       };
     } catch (error) {

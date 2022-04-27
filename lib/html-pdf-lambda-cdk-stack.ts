@@ -13,9 +13,10 @@ export class HtmlPdfLambdaCdkStack extends cdk.Stack {
       handler: 'main',
       entry: path.join(__dirname, `/../src/pdfGenerator/index.ts`),
       bundling: {
-        //minify: true,
-        //externalModules: ['aws-sdk'],
-        //nodeModules: ['chrome-aws-lambda', 'puppeteer-core', 'handlebars'],
+        minify: true,
+        externalModules: ['aws-sdk'],
+        nodeModules: ['chrome-aws-lambda', 'puppeteer-core', 'handlebars'],
+        tsconfig: './tsconfig.json',
       },
     });
   }
