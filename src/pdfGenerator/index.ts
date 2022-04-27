@@ -5,5 +5,5 @@ export async function createPdfHandler(
   event: APIGatewayProxyEventV2,
 ): Promise<APIGatewayProxyResultV2> {
   console.log('event 👉', event);
-  return await PDFGenerator.getPDF(event);
+  return await PDFGenerator.createPDF(event);
 }

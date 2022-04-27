@@ -6,6 +6,7 @@ import { PDFOptions } from 'puppeteer-core';
 import * as ReactDOMServer from 'react-dom/server';
 import { TestComponent } from '../templates/TestComponent';
 import React from 'react';
+import { ComponentProps, renderComponent } from '../ssRenderer';
 
 export class PDFGenerator {
   /**
@@ -13,17 +14,28 @@ export class PDFGenerator {
    * @param {any} event - The object that comes for lambda which includes the http's attributes
    * @returns {Array<any>} array of Structure Instructions
    */
-  static getPDF: GeneratorFunction = async (event: APIGatewayProxyEventV2) => {
+  static createPDF: GeneratorFunction = async (event: APIGatewayProxyEventV2) => {
     try {
       // const html = getTemplate({ name: 'Ian' });
-      const html = ReactDOMServer.renderToString(TestComponent());
-      console.log(html);
+
+      // TODO Get payload from the event body
+      const props: ComponentProps = {
+        payload: {
+          name: 'Ian',
+        },
+      };
+
+      // Render the component to plain html static markup
+      const html = renderComponent(TestComponent, props);
+
+      // Set PDF Options
       const options: PDFOptions = {
         format: 'a4',
         printBackground: true,
         margin: { top: '1in', right: '1in', bottom: '1in', left: '1in' },
       };
 
+      // Generate the PDF
       const pdf = await PdfHelper.getPDFBuffer(html, options);
 
       return {
