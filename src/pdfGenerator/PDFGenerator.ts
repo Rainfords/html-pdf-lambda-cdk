@@ -1,6 +1,8 @@
-import { Helper } from './Helper';
+import { PdfHelper } from './PdfHelper';
 import { GeneratorFunction } from './types/GeneratorTypes';
 import { getTemplate } from './templates/pdf-template';
+import { APIGatewayProxyEventV2 } from 'aws-lambda';
+import { PDFOptions } from 'puppeteer-core';
 
 export class PDFGenerator {
   /**
@@ -8,16 +10,16 @@ export class PDFGenerator {
    * @param {any} event - The object that comes for lambda which includes the http's attributes
    * @returns {Array<any>} array of Structure Instructions
    */
-  static getPDF: GeneratorFunction = async event => {
+  static getPDF: GeneratorFunction = async (event: APIGatewayProxyEventV2) => {
     try {
       const html = getTemplate({ name: 'Ian' });
-      const options = {
-        format: 'A4',
+      const options: PDFOptions = {
+        format: 'a4',
         printBackground: true,
         margin: { top: '1in', right: '1in', bottom: '1in', left: '1in' },
       };
 
-      const pdf = await Helper.getPDFBuffer(html, options);
+      const pdf = await PdfHelper.getPDFBuffer(html, options);
 
       return {
         headers: {

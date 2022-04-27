@@ -10,7 +10,7 @@ export class HtmlPdfLambdaCdkStack extends cdk.Stack {
       memorySize: 1024,
       timeout: cdk.Duration.seconds(20),
       runtime: lambda.Runtime.NODEJS_14_X,
-      handler: 'main',
+      handler: 'createPdfHandler',
       entry: path.join(__dirname, `/../src/pdfGenerator/index.ts`),
       bundling: {
         minify: true,
