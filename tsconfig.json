@@ -26,7 +26,8 @@
     "forceConsistentCasingInFileNames": true,
     "experimentalDecorators": true,
     "typeRoots": ["./node_modules/@types"],
-    "isolatedModules": true
+    "isolatedModules": true,
+    "jsx": "react-jsx"
   },
   "exclude": ["node_modules", "**/node_modules/*", "cdk.out"]
 }

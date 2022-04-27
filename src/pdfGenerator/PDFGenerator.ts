@@ -3,6 +3,9 @@ import { GeneratorFunction } from './types/GeneratorTypes';
 import { getTemplate } from './templates/pdf-template';
 import { APIGatewayProxyEventV2 } from 'aws-lambda';
 import { PDFOptions } from 'puppeteer-core';
+import * as ReactDOMServer from 'react-dom/server';
+import { TestComponent } from '../templates/TestComponent';
+import React from 'react';
 
 export class PDFGenerator {
   /**
@@ -12,7 +15,9 @@ export class PDFGenerator {
    */
   static getPDF: GeneratorFunction = async (event: APIGatewayProxyEventV2) => {
     try {
-      const html = getTemplate({ name: 'Ian' });
+      // const html = getTemplate({ name: 'Ian' });
+      const html = ReactDOMServer.renderToString(TestComponent());
+      console.log(html);
       const options: PDFOptions = {
         format: 'a4',
         printBackground: true,
