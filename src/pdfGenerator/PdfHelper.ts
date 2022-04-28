@@ -1,7 +1,7 @@
 // @ts-ignore
 import * as chromium from 'chrome-aws-lambda';
-import { GetPDFBuffer } from './types/HelperTypes';
 import { PDFOptions } from 'puppeteer-core';
+import { GetPDFBuffer } from './types/HelperTypes';
 
 export class PdfHelper {
   static getPDFBuffer: GetPDFBuffer = async (
@@ -31,9 +31,7 @@ export class PdfHelper {
       // Return the printed PDF
       return await page.pdf(options);
     } catch (error) {
-      return Error(
-        `There has been an error rendering a PDF, error was ${error}`,
-      );
+      return Error('There has been an error rendering a PDF');
     } finally {
       if (browser !== null) {
         await browser.close();

@@ -1,28 +1,25 @@
-import { PdfHelper } from './PdfHelper';
-import { GeneratorFunction } from './types/GeneratorTypes';
-import { getTemplate } from './templates/pdf-template';
 import { APIGatewayProxyEventV2 } from 'aws-lambda';
 import { PDFOptions } from 'puppeteer-core';
-import * as ReactDOMServer from 'react-dom/server';
+import { PdfHelper } from './PdfHelper';
+import { GeneratorFunction } from './types/GeneratorTypes';
 import { TestComponent } from '../templates/TestComponent';
-import React from 'react';
 import { ComponentProps, renderComponent } from '../ssRenderer';
 
 export class PDFGenerator {
   /**
-   * This function returns the buffer for a generated PDF of manual
-   * @param {any} event - The object that comes for lambda which includes the http's attributes
-   * @returns {Array<any>} array of Structure Instructions
+   * This function returns the buffer for a generated PDF
+   *
+   * @param {APIGatewayProxyEventV2} event - The object that comes for lambda which includes the http's attributes
+   * @returns {GeneratorFunction} The PDF Buffer
    */
-  static createPDF: GeneratorFunction = async (event: APIGatewayProxyEventV2) => {
+  static createPDF: GeneratorFunction = async (
+    event: APIGatewayProxyEventV2,
+  ) => {
     try {
-      // const html = getTemplate({ name: 'Ian' });
-
       // TODO Get payload from the event body
       const props: ComponentProps = {
-        payload: {
-          name: 'Ian',
-        },
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+        payload: JSON.parse(event.body ? event.body : '{}'),
       };
 
       // Render the component to plain html static markup
