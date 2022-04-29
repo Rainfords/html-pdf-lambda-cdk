@@ -19,4 +19,12 @@ cdk synth create-pdf --no-staging > template.yaml
 
 sam local invoke --no-event
 
+## Single invocation
+sam local start-lambda
+aws lambda invoke --function-name "create-pdf" --endpoint-url "http://127.0.0.1:3001" --no-verify-ssl --profile survey-nonprod out.txt
 
+## Test with api gateway locally
+npm run build
+cdk synth create-pdf --no-staging > template.yaml
+sam local start-api
+curl -v -X POST 'http://127.0.0.1:3000/create-pdf' -H 'content-type: application/json' -d '{ "name": "Ian" }'

@@ -16,12 +16,15 @@ export class PDFGenerator {
     event: APIGatewayProxyEventV2,
   ) => {
     try {
+      let payload = {};
+      if (event.body) {
+        console.log(`JSON Payload: ${event.body}`);
+        payload = JSON.parse(event.body) as object;
+      }
       // TODO Get payload from the event body
       const props: ComponentProps = {
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-        payload: JSON.parse(event.body ? event.body : '{}'),
+        payload,
       };
-
       // Render the component to plain html static markup
       const html = renderComponent(TestComponent, props);
 
